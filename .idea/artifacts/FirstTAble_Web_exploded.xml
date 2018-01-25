@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="FirstTAble:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/FirstTAble_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="FirstTAble/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="FirstTAble" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/jstl/jstl/1.2/jstl-1.2.jar" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/javax/servlet/jstl/1.2/jstl-1.2.jar" />
+          <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
+          <element id="library" level="project" name="mysql:mysql-connector-java:5.1.38" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
