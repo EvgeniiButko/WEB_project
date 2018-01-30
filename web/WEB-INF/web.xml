@@ -5,28 +5,27 @@
          version="2.5">
 
     <servlet>
-        <servlet-name>timeaction</servlet-name>
+        <servlet-name>MainServlet</servlet-name>
         <servlet-class>BAckEnd.Servlet</servlet-class>
     </servlet>
-    
     <servlet-mapping>
-        <servlet-name>timeaction</servlet-name>
-        <url-pattern>*.jsp</url-pattern>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/timeaction</url-pattern>
     </servlet-mapping>
-    
+
     <filter>
         <filter-name>ServletSecurityFilter</filter-name>
         <filter-class>BAckEnd.Filters.ServletSecurityFilter</filter-class>
-        
         <init-param>
             <param-name>namespace</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
-    
     <filter-mapping>
         <filter-name>ServletSecurityFilter</filter-name>
-        <servlet-name>timeaction</servlet-name>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>*.html</url-pattern>
     </filter-mapping>
+
 </web-app>
 

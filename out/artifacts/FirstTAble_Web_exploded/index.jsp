@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Evgen
@@ -11,34 +12,21 @@
     <title>Title</title>
 </head>
 <body>
-<h1>
-    Введите логин and password
-</h1>
-   <%--<jsp:useBean id="calendar" class="java.util.GregorianCalendar"/>--%>
-   <%--<form name = "Simple" action="timeaction" method="POST">--%>
-      <%--<input type="hidden" name="time" value="${calendar.timeInMillis}"/>--%>
-      <%--<input type="submit" name="button" value="Count the time"/>--%>
-   <%--</form>--%>
-<table>
-<form action = "/timeaction" method="post">
-    <tr>
-        <td colspan="2">
-            <h5>Login</h5>
-            <input name = "txtlogin" type="text">
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <h5>Password</h5>
-            <input name = "txtpassword" type="text">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type = "submit">
-        </td>
-    </tr>
-</form>
-</table>
+<div>
+    <h3><a href = enter.jsp>
+        Enter
+    </a></h3>
+</div>
+<div>
+    <table border="1">
+        <c:import url="/start"/>
+        <c:forEach items="${requestScope.posts}" var = "post">
+            <tr>
+                <td>${post.ID}</td>
+                <td><c:out value="${post.name}"/></td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 </body>
 </html>

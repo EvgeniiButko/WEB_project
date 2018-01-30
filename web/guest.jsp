@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Evgen
@@ -11,6 +12,8 @@
     <title>Guest</title>
 </head>
 <body>
-
+<h1>
+    Hello guest!
+</h1>
 </body>
 </html>

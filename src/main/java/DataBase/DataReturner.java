@@ -1,9 +1,9 @@
 package DataBase;
 import BAckEnd.*;
+import BAckEnd.Filters.ClientType;
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -68,6 +68,27 @@ public class DataReturner {
         }
     }
 
+    public static ClientType getClientTypeFromDB(String log,String pass) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try(Connection connection = DriverManager.getConnection(Url,User,Password);
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM products.users WHERE EXISTS " +
+                    "(SELECT * FROM products.users WHERE (login = ? AND password = ?))")){
+            preparedStatement.setString(1,log);
+            preparedStatement.setString(2,pass);
+            int count = preparedStatement.executeUpdate();
+
+            if(count == 1)return ClientType.GUEST;
+            if(count == 0)return ClientType.NONE;
+        } catch (SQLException e) {
+           e.printStackTrace();
+           return ClientType.NONE;
+        }
+        return ClientType.GUEST;
+    }
 //    public static void main(String[] args) {
 //        try {
 //            List<Post> list = DataReturner.getReturnArray();
