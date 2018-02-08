@@ -21,27 +21,41 @@ public class Servlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        req.getRequestDispatcher("Hello.jsp").forward(req,resp);
+        req.getRequestDispatcher("WEB-INF/Hello.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("txtlogin");
         String password = req.getParameter("txtpassword");
+        String registr = req.getParameter("reg");
 
-        if(login.equals("Jeka") && password.equals("Tomas")) {
-            HttpSession session = req.getSession();
-            session.setAttribute("userType", ClientType.ADMIN);
-            try {
-                req.setAttribute("posts", DAO.getPosts());
-            } catch (SQLException e) {
-                e.printStackTrace();
+
+            if (login.equals("Jeka") && password.equals("Tomas")) {
+                HttpSession session = req.getSession();
+                session.setAttribute("userType", ClientType.ADMIN);
+                try {
+                    req.setAttribute("posts", DAO.getPosts());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                req.getRequestDispatcher("WEB-INF/Hello.jsp").forward(req, resp);
+            } else {
+                if (DataReturner.getClientTypeFromDB(login, password) == ClientType.GUEST) {
+                    req.getRequestDispatcher("WEB-INF/guest.jsp").forward(req, resp);
+                } else {
+                    if (registr != null && registr.equals("Registration")) {
+                        req.getRequestDispatcher("WEB-INF/registr.jsp").forward(req, resp);
+                        return;
+                    }else{
+                        try{
+                            req.getRequestDispatcher("/index.jsp").forward(req, resp);
+                        }catch (Exception e){
+                            resp.sendRedirect("index.jsp");
+                        }
+                    }
+                }
             }
-            req.getRequestDispatcher("Hello.jsp").forward(req, resp);
-        }else {
-            if(DataReturner.getClientTypeFromDB(login,password) == ClientType.GUEST){
-                req.getRequestDispatcher("guest.jsp").forward(req, resp);
-            }else req.getRequestDispatcher("index.jsp").forward(req,resp);
         }
-    }
+
 }

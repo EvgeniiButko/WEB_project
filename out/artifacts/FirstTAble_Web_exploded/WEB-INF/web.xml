@@ -13,6 +13,24 @@
         <url-pattern>/timeaction</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ServletAd</servlet-name>
+        <servlet-class>BAckEnd.AddPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletAd</servlet-name>
+        <url-pattern>/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServleteDete</servlet-name>
+        <servlet-class>BAckEnd.ServletDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServleteDete</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>ServletSecurityFilter</filter-name>
         <filter-class>BAckEnd.Filters.ServletSecurityFilter</filter-class>
@@ -24,6 +42,8 @@
     <filter-mapping>
         <filter-name>ServletSecurityFilter</filter-name>
         <servlet-name>MainServlet</servlet-name>
+        <servlet-name>ServletAd</servlet-name>
+        <servlet-name>ServleteDete</servlet-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
 

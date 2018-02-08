@@ -9,24 +9,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="CSS/cssFile.css"/>
     <title>Title</title>
 </head>
 <body>
-<div>
-    <h3><a href = enter.jsp>
-        Enter
-    </a></h3>
+<div class="Head">
+    <form action = "/order" method = post>
+        <input type = "submit" name = "id" value="Enter"/>
+    </form>
 </div>
-<div>
-    <table border="1">
+<div class="green">
         <c:import url="/start"/>
         <c:forEach items="${requestScope.posts}" var = "post">
-            <tr>
-                <td>${post.ID}</td>
-                <td><c:out value="${post.name}"/></td>
-            </tr>
+            <div class="forItems">
+            <h4>
+                <c:out value="${post.ID}"/>
+                <c:out value="${post.name}"/>
+            </h4>
+            <h4 class="information"><c:out value="${post.inf}"/></h4>
+            <form action = "/order" method = post>
+                <button name = "id" value="${post.ID}" class="button">
+                    Заказать
+                </button>
+            </form>
+            </div>
+            <hr class="poloska">
         </c:forEach>
-    </table>
 </div>
 </body>
 </html>

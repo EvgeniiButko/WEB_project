@@ -26,12 +26,30 @@ public class ServletSecurityFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
 
+        try {
+            if (servletRequest.getParameter("txtlogin").equals("Jeka") &&
+                    servletRequest.getParameter("txtpassword").equals("Tomas")) {
+                filterChain.doFilter(request, response);
+            }
+        }catch(NullPointerException e){}
+
         ClientType type = (ClientType) session.getAttribute("userType");
         if(type == null){
             type = ClientType.GUEST;
             session.setAttribute("userType",type);
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/guest.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(request,response);
+            return;
+        }
+
+        if(type == ClientType.GUEST){
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request,response);
+            return;
+        }
+
+        if (type == ClientType.ADMIN) {
+            filterChain.doFilter(request,response);
             return;
         }
 

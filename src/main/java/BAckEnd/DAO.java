@@ -19,11 +19,17 @@ public class DAO {
         }
     }
 
-    public static synchronized void addPost(String txt){
+    public static synchronized void addPost(String txt,String i){
         try {
-            DataReturner.addPost(txt);
+            DataReturner.addPost(txt,i);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void deleteOrder(int id) {
+        try{
+            DataReturner.deleteOrder(id);
+        }catch (SQLException e){}
     }
 }

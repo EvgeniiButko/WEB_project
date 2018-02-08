@@ -2,6 +2,7 @@ package BAckEnd;
 
 import DataBase.UserRegister;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +18,12 @@ public class RegisterServlet extends HttpServlet {
         String password = req.getParameter("txtpassword");
         String mail = req.getParameter("txtmail");
 
-        UserRegister.addUser(login,password,mail);
-        if(login != null && password != null && mail != null)req.getRequestDispatcher("guest.jsp").forward(req, resp);
+        if(login != null && password != null && mail != null){
+            UserRegister.addUser(login,password,mail);
+        }
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/timeaction");
+        dispatcher.forward(req,resp);
     }
 
     @Override

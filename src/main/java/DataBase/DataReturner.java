@@ -35,13 +35,13 @@ public class DataReturner {
 
         try(
             Connection connection = DriverManager.getConnection(Url,User,Password);
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM products.product");) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM products.product2");) {
 
 
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 returnArray.add(new Post(resultSet.getInt("ID"),
-                        resultSet.getString("Name")));
+                        resultSet.getString("Name"),resultSet.getString("information")));
             }
 
         }catch (NullPointerException e){
@@ -52,17 +52,26 @@ public class DataReturner {
         return returnArray;
     }
 
-    public static void addPost(String txt) throws SQLException {
+    public static void addPost(String txt,String i) throws SQLException {
        try(Connection connection = DriverManager.getConnection(Url,User,Password);
-           PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO products.product(Name) VALUES (?)");){
+           PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO products.product2(Name,information) VALUES (?,?)");){
            preparedStatement.setString(1,txt);
+           preparedStatement.setString(2,i);
            preparedStatement.executeUpdate();
        }
     }
 
     public static void deletePost(int id) throws SQLException {
         try(Connection connection = DriverManager.getConnection(Url,User,Password);
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM products.product WHERE ID = ?");){
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM products.product2 WHERE ID = ?");){
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public static void deleteOrder(final int id) throws SQLException{
+        try(Connection connection = DriverManager.getConnection(Url,User,Password);
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM products.order2 WHERE ID = ?");){
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
         }
